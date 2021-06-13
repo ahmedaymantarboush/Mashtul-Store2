@@ -1,0 +1,213 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<style type="text/css">
+    body {
+        color: #1a202c;
+        text-align: right;
+        background-color: #efefef;
+    }
+    
+    .main-body {
+        padding: 15px;
+    }
+    
+    .card {
+        box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06);
+    }
+    
+    .card {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        min-width: 0;
+        word-wrap: break-word;
+        background-color: #fff;
+        background-clip: border-box;
+        border: 0 solid rgba(0, 0, 0, 0.125);
+        border-radius: 0.25rem;
+    }
+    
+    .card-body {
+        flex: 1 1 auto;
+        min-height: 1px;
+        padding: 1rem;
+    }
+    
+    .gutters-sm {
+        margin-right: -8px;
+        margin-left: -8px;
+    }
+    
+    .gutters-sm>.col,
+    .gutters-sm>[class*="col-"] {
+        padding-right: 8px;
+        padding-left: 8px;
+    }
+    
+    .mb-3,
+    .my-3 {
+        margin-bottom: 1rem !important;
+    }
+    
+    .bg-gray-300 {
+        background-color: #e2e8f0;
+    }
+    
+    .h-100 {
+        height: 100% !important;
+    }
+    
+    .shadow-none {
+        box-shadow: none !important;
+    }
+    
+    body>div>div>div>div.col-md-4.mb-3>div>div>div>div.userProfileImage {
+        width: 190px;
+        height: 190px;
+    }
+    
+    @media (min-width: 768px) and ( max-width: 992px) {
+        body>div>div>div>div.col-md-4.mb-3>div>div>div>div.userProfileImage {
+            width: 140px;
+            height: 140px;
+        }
+    }
+    
+    input,
+    .editValue,
+    body>div>div>div>div.col-md-8>div.card.mb-3>div>div>div.col-sm-9.text-secondary {
+        text-align: center;
+        background: none;
+        border: none;
+        margin: auto;
+    }
+    
+    input,
+    .editValue {
+        width: 100%;
+    }
+    
+    body>div>div>div>div.col-md-8>div>div>form>div:last-of-type {
+        display: none;
+    }
+</style>
+
+<div class="container">
+    <div class="main-body">
+        <div class="row gutters-sm">
+            <div class="col-md-4 mb-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="d-flex flex-column align-items-center text-center">
+                            <div class="userProfileImage" id="userProfileImage" onclick="$('#id_image').click()" style="background-image:url({{currentUser.image.url}}); width:190px; height:190px;"></div>
+                            <div class="mt-3">
+                                <h4 class="text-center">
+                                    {{currentUser.user.first_name}} {{currentUser.user.last_name}}
+                                </h4>
+                                <p class="text-secondary mb-1 text-center">
+                                    {{currentUser.user.email}}
+                                </p>
+                                <p class="text-secondary mb-1 text-center">
+                                    {{currentUser.user.username}}
+                                </p>
+                                <p class="text-muted font-size-sm text-center">
+                                    {{currentUser.address1}}
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <div class="card mb-3">
+                    <div class="card-body">
+                        <form action="{% url 'UserProfile:editValue' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">الاسم الأول:</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{userForm.first_name}}
+                                    <!-- <input class="editValue" type="text" name="firstName" value="{{currentUser.user.first_name}}"> -->
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">الاسم الثاني:</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{userForm.last_name}}
+                                    <!-- <input class="editValue" type="text" name="lastName" value="{{currentUser.user.last_name}}"> -->
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">الايميل:</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    {{userForm.email}}
+                                    <!-- <input class="editValue" type="text" name="email" value="{{currentUser.user.email}}"> -->
+                                </div>
+                            </div>
+                            <hr />
+                            <!-- <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">كلمة المرور:</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input class="editValue" type="text" name="password">
+                                    {{userForm.password}}
+                                </div>
+                            </div>
+                            <hr /> -->
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">رقم الهاتف:</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <!-- <input class="editValue" type="text" name="phoneNumber" value="{{currentUser.phoneNumber}}"> -->
+                                    {{profileForm.phoneNumber}}
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">العنوان الأول:</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <!-- <input class="editValue" type="text" name="address1" value="{{currentUser.address1}}"> -->
+                                    {{profileForm.address1}}
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0">العنوان الثاني:</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <!-- <input class="editValue" type="text" name="address2" value="{{currentUser.address2}}"> -->
+                                    {{profileForm.address2}}
+                                </div>
+                            </div>
+                            <hr />
+                            <div class="row" style="padding: 0 20px; margin-top: 20px;">
+                                <input type="submit" class="btn btn-success" value="حفظ البيانات">
+                            </div>
+                            <!-- <input type="file" id="id_image" name="image" onchange="upload()" accept="image/*" style="display: none;"> -->
+                            <div class="row" style="padding: 0 20px; margin-top: 20px;">
+                                {{profileForm.image}}
+                                <!-- <input type="submit" class="btn btn-success" value="حفظ البيانات"> -->
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+
+<script src="{% static 'js/img.js' %}"></script>
+{% endblock content %}

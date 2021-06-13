@@ -1,0 +1,219 @@
+{% extends "base.html" %} {% load static %} {% block content %}
+<style>
+   /* input {
+        border-radius: 5px;
+        text-align: center;
+        padding: 7px;
+        font-size: 18px;
+        width: 230px;
+    }*/
+    .selectContainer{
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: space-evenly;
+      align-items: center;
+    }
+    .selectContainer select{
+      width: 80%;
+      padding: 5px;
+      border-radius: 9px;
+      outline: none;
+    }
+    .showcase-last textarea{
+      width:95%;
+      margin: auto;
+      display: block;
+      border-radius: 10px;
+      border: 1px solid #ced4da;
+      padding: 11px 15px;
+    }
+    
+    .container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-content: center;
+        justify-content: center;
+        align-items: flex-start;
+        margin: 40px auto;
+        padding: 0 25px;
+    }
+    
+    .productImage {
+        height: 400px;
+        width: 300px;
+        margin: 0 32px 32px;
+        box-shadow: 0px 0px 20px 0px #ccc6c6;
+    }
+    
+    .content {
+        max-width: calc(1320px - 300px - 120px);
+        min-width: 50%;
+    }
+    
+    .form-label-group {
+        position: relative;
+        margin-bottom: 1rem;
+    }
+    
+    .form-label-group input {
+        height: auto;
+        border-radius: 2rem;
+    }
+    
+    .form-label-group>input,
+    .form-label-group>label {
+        padding: var(--input-padding-y) var(--input-padding-x);
+    }
+    
+    .form-label-group>label {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        width: 100%;
+        margin-bottom: 0;
+        /* Override default `<label>` margin */
+        line-height: 1.5;
+        color: #495057;
+        border: 1px solid transparent;
+        border-radius: .25rem;
+        transition: all .1s ease-in-out;
+    }
+    
+    .form-label-group input::-webkit-input-placeholder {
+        color: transparent;
+    }
+    
+    .form-label-group input:-ms-input-placeholder {
+        color: transparent;
+    }
+    
+    .form-label-group input::-ms-input-placeholder {
+        color: transparent;
+    }
+    
+    .form-label-group input::-moz-placeholder {
+        color: transparent;
+    }
+    
+    .form-label-group input::placeholder {
+        color: transparent;
+    }
+    
+    .form-label-group input:not(:placeholder-shown) {
+        padding-top: calc(var(--input-padding-y) + var(--input-padding-y) * (2 / 3));
+        padding-bottom: calc(var(--input-padding-y) / 3);
+    }
+    
+    .form-label-group input:not(:placeholder-shown)~label {
+        padding-top: calc(var(--input-padding-y) / 3);
+        padding-bottom: calc(var(--input-padding-y) / 3);
+        font-size: 12px;
+        color: #777;
+    }
+    
+    .btn-lg {
+        width: 100%;
+    }
+    /* Fallback for Edge
+    -------------------------------------------------- */
+    
+    @supports (-ms-ime-align: auto) {
+        .form-label-group>label {
+            display: none;
+        }
+        .form-label-group input::-ms-input-placeholder {
+            color: #777;
+        }
+    }
+    /* Fallback for IE
+-------------------------------------------------- */
+    
+    @media all and (-ms-high-contrast: none),
+    (-ms-high-contrast: active) {
+        .form-label-group>label {
+            display: none;
+        }
+        .form-label-group input:-ms-input-placeholder {
+            color: #777;
+        }
+    }
+    
+     :root {
+        --input-padding-x: 1.5rem;
+        --input-padding-y: .75rem;
+    }
+</style>
+<div class="container">
+    <div id="userProfileImage"  class="productImage card-img-top" style="background: url(/media/Products/default.jpg);" onclick="$('#id_image').click()"></div>
+    <form  method="POST" action="{%  url 'Products:add' %}" class="content" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="col-md-4 showcase" style="width:100%">
+            <div class="showcase-rt-top">
+                <div class="pull-left shoe-name">
+                    <div class="form-label-group">
+                        <input type="text" id="inputName" name="productName" class="form-control" placeholder="اسم المنتج" required autofocus>
+                        <label for="inputName">اسم المنتج</label>
+                    </div>
+                </div>
+                <hr class="featurette-divider">
+                <div class="pull-left shoe-name">
+                    <div class="form-label-group">
+                        <input type="number" id="inputPrice" name="price" class="form-control" placeholder="السعر" required>
+                        <label for="inputPrice">السعر</label>
+                    </div>
+                     <div class="form-label-group">
+                        <input type="number" id="inputSale" name="sale" class="form-control" placeholder="الخصم">
+                        <label for="inputSale">الخصم</label>
+                    </div>
+                </div>
+            </div>
+            <hr class="featurette-divider">
+            <div class="shocase-rt-bot">
+                <div class="form-label-group">
+                  <input type="number" id="inputQuantity" name="quantity" class="form-control" placeholder="الكمية" required>
+                  <label for="inputQuantity">الكمية</label>
+                </div>
+                <div class="selectContainer">
+                  <label for="unit">وحدة القياس:</label>
+                  <Select id="unit" name="unit" required>
+                    {% for unit in Units %}
+                      <option value="{{unit.id}}">{{unit.name}}</option>
+                    {% endfor %}
+                  </Select>
+                </div>
+            </div>
+            <hr class="featurette-divider">
+            <div class="shocase-rt-bot">
+                <div class="selectContainer">
+                  <label for="category">الفئة:</label>
+                  <Select id="category" name="category" required>
+                    {% for category in Categories %}
+                      <option value="{{category.id}}">{{category.name}}</option>
+                    {% endfor %}
+                  </Select>
+                </div>
+            </div>
+            <hr class="featurette-divider">
+            </div>
+            <div class="showcase-last ">
+                <h3>وصف المنتج: </h3>
+                <textarea name="description" rows="20" cols="15"></textarea>
+            </div>
+            <div class="row">
+              <div class=container>
+                <input type="submit" class="btn btn-success" value="اضافة المنتج">
+              </div>
+            </div>
+            <div class="row" style="padding: 0 20px; margin-top: 20px; display: none">
+              <input type="file" name="id_image" accept="image/*" id="id_image">
+            </div>
+        </div>
+       
+    </form>
+</div>
+</div>
+<script src="{% static 'js/img.js' %}"></script>
+{% endblock content %}

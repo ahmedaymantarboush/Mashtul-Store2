@@ -1,0 +1,118 @@
+/*
+  * {
+      direction: rtl;
+  }
+*/
+ul:not(.list-unstyled) li{
+    text-align: right;
+}
+
+body {
+    color: #1a202c;
+    /*text-align: right;*/
+    background: linear-gradient(to right, #cccccc5c, #e5e5e526);
+}
+input{
+  text-align: center;
+}
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span{
+    word-break: break-all;
+}
+
+/* Start Navbar */
+
+@media (min-width: 992px) {
+    .navbar-expand-lg .navbar-collapse {
+        justify-content: space-between;
+        padding-left: 1%;
+    }
+}
+
+hr {
+    width: 75%;
+    margin: 10px auto;
+}
+
+body>div>div.alert.alert-dismissible.fade.show {
+    display: flex !important;
+    justify-content: space-between !important;
+}
+.container-fluid{
+    max-width: 1515px;
+}
+.userProfileImage {
+    /*
+    justify-content: center; 
+    align-items: center;
+    align-content: center; 
+    */
+    /*************************************** */
+    width: 70px;
+    height: 70px;
+    background-size: contain;
+
+    background-position: center;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 5px solid #fff;
+    margin: 8px auto 12px;
+    box-shadow: #000 0px 0px 12px;
+}
+
+#navbarSupportedContent>ul>li.nav-item.dropdown>ul>h6 {
+    text-align: center;
+}
+
+#navbarSupportedContent>ul>li.nav-item.dropdown>ul>div>img {
+    width: 100%;
+}
+
+
+/* Cart */
+
+.frmBtn {
+    margin-left: 0 !important;
+    background: none;
+    border: none;
+    outline: none;
+    color: #0d6efd
+}
+
+.moreDetails {
+    text-decoration: none;
+}
+
+.love {
+    color: #ce1414;
+}
+
+.product {
+    height: 521px !important;
+    width: 19rem !important;
+    margin: 0 7px 7px;
+}
+
+.description {
+    max-height: 95px;
+    overflow: hidden;
+    text-overflow: unset;
+}
+
+.productImage {
+    height: 260px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-size: cover !important;
+    background-position: center !important;
+}
+
+
+/* Edit Profile */
